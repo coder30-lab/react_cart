@@ -11,8 +11,29 @@ constructor(){
   }
 }
 increaseQuantity=()=>{
+ // this.state.qty+=1;
+//  this.setState({
+//    qty:this.state.qty+=1
+//  });
+this.setState((prevState)=>{
+return{
+  qty:prevState.qty+1
+}
+});
   console.log('this.state',this.state);
 }
+
+decreaseQuantity=()=>{
+ 
+ this.setState((prevState)=>{
+ return{
+   qty:prevState.qty-1
+ }
+ });
+   console.log('this.state',this.state);
+ }
+ 
+
   render(){
     const{title,price,qty}=this.state;
     return(
@@ -34,7 +55,9 @@ increaseQuantity=()=>{
   <img 
   alt="decrease" 
   className="action-icons" 
-  srx="https://image.flaticon.com/icons/svg/1665/1665612.svg"/>
+  srx="https://image.flaticon.com/icons/svg/1665/1665612.svg"
+  onClick={this.decreaseQuantity}
+  />
   <img 
   alt="delete" 
   className="action-icons" 
