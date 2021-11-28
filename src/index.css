@@ -19,6 +19,7 @@ body {
 }
 .action-icons {
   height: 25px;
+}
 .action-icons:hover {
   cursor: pointer;
 }
