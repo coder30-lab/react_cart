@@ -10,6 +10,25 @@ constructor(){
     img:' '
   }
 }
+
+// testing () {
+  //   const promise = new Promise((resolve, reject) => {
+  //     setTimeout(() => {
+  //       resolve('done');
+  //     }, 5000);
+  //   })
+
+  //   promise.then(() => {
+  //     // setState acts like a synchronus call
+  //     this.setState({ qty: this.state.qty + 10 });
+
+  //     this.setState({ qty: this.state.qty + 10 });
+
+  //     this.setState({ qty: this.state.qty + 10 });
+
+  //     console.log('state', this.state);
+  //   });
+  // }
 increaseQuantity=()=>{
  // this.state.qty+=1;
 //  this.setState({
@@ -24,7 +43,8 @@ return{
 }
 
 decreaseQuantity=()=>{
- 
+ const {qty}=this.state;
+ if(qty==0){return;}
  this.setState((prevState)=>{
  return{
    qty:prevState.qty-1
