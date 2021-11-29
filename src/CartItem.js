@@ -1,61 +1,10 @@
 import React from "react";
 class CartItem extends React.Component{
 
-constructor(){
-  super()
-  this.state={
-    price:999,
-    title:'phone',
-    qty:1,
-    img:' '
-  }
-}
-
-// testing () {
-  //   const promise = new Promise((resolve, reject) => {
-  //     setTimeout(() => {
-  //       resolve('done');
-  //     }, 5000);
-  //   })
-
-  //   promise.then(() => {
-  //     // setState acts like a synchronus call
-  //     this.setState({ qty: this.state.qty + 10 });
-
-  //     this.setState({ qty: this.state.qty + 10 });
-
-  //     this.setState({ qty: this.state.qty + 10 });
-
-  //     console.log('state', this.state);
-  //   });
-  // }
-increaseQuantity=()=>{
- // this.state.qty+=1;
-//  this.setState({
-//    qty:this.state.qty+=1
-//  });
-this.setState((prevState)=>{
-return{
-  qty:prevState.qty+1
-}
-});
-  console.log('this.state',this.state);
-}
-
-decreaseQuantity=()=>{
- const {qty}=this.state;
- if(qty==0){return;}
- this.setState((prevState)=>{
- return{
-   qty:prevState.qty-1
- }
- });
-   console.log('this.state',this.state);
- }
- 
-
   render(){
-    const{title,price,qty}=this.state;
+    console.log('this.props',this.props);
+    const{title,price,qty}=this.props.product;
+    const{product,OnIncreaseQuantity,OnDecreaseQuantity,onDeleteQuantity}=this.props;
     return(
       <div className="cart-item">
 <div className="left-block">
@@ -70,18 +19,21 @@ decreaseQuantity=()=>{
   alt="increase" 
   className="action-icons" 
   srx="https://image.flaticon.com/icons/svg/992/992651.svg"
-  onClick={this.increaseQuantity}
+  onClick={()=>OnIncreaseQuantity(product)}
   />
   <img 
   alt="decrease" 
   className="action-icons" 
   srx="https://image.flaticon.com/icons/svg/1665/1665612.svg"
-  onClick={this.decreaseQuantity}
+ 
+  onClick={()=>OnDecreaseQuantity(product)}
   />
   <img 
   alt="delete" 
   className="action-icons" 
   srx="https://image.flaticon.com/icons/svg/1214/1214428.svg"
+  
+  onClick={()=>onDeleteQuantity(product.id)}
   />
   </div>
 </div>
