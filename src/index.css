@@ -16,9 +16,11 @@ body {
 }
 .cart-item-actions {
   margin-top: 20px;
+  
 }
 .action-icons {
   height: 25px;
+  margin-left: 6px;
 }
 .action-icons:hover {
   cursor: pointer;

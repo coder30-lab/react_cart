@@ -1,14 +1,12 @@
 import React from "react";
-class CartItem extends React.Component{
+const CartItem=(props)=>{
 
-  render(){
-    console.log('this.props',this.props);
-    const{title,price,qty}=this.props.product;
-    const{product,OnIncreaseQuantity,OnDecreaseQuantity,onDeleteQuantity}=this.props;
+    const{title,price,qty}=props.product;
+    const{product,OnIncreaseQuantity,OnDecreaseQuantity,onDeleteQuantity}=props;
     return(
       <div className="cart-item">
 <div className="left-block">
-  <img style={styles.image}/>
+  <img style={styles.image} alt="" src={product.img}/>
 </div>
 <div className="right-block">
   <div style={{fontSize:25}}>{title}</div>
@@ -18,20 +16,20 @@ class CartItem extends React.Component{
   <img 
   alt="increase" 
   className="action-icons" 
-  srx="https://image.flaticon.com/icons/svg/992/992651.svg"
+  src="https://cdn-icons.flaticon.com/png/512/3303/premium/3303893.png?token=exp=1638179389~hmac=2f227c4a24a6bee46a96f0afdd686d04"
   onClick={()=>OnIncreaseQuantity(product)}
   />
   <img 
   alt="decrease" 
   className="action-icons" 
-  srx="https://image.flaticon.com/icons/svg/1665/1665612.svg"
+  src="https://cdn-icons-png.flaticon.com/512/1828/1828906.png"
  
   onClick={()=>OnDecreaseQuantity(product)}
   />
   <img 
   alt="delete" 
   className="action-icons" 
-  srx="https://image.flaticon.com/icons/svg/1214/1214428.svg"
+  src="https://cdn-icons-png.flaticon.com/512/3221/3221897.png"
   
   onClick={()=>onDeleteQuantity(product.id)}
   />
@@ -39,7 +37,7 @@ class CartItem extends React.Component{
 </div>
       </div>
     );
-  }
+
 }
 const styles={
   image:{
