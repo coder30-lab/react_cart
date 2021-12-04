@@ -16,7 +16,7 @@ const CartItem=(props)=>{
   <img 
   alt="increase" 
   className="action-icons" 
-  src="https://cdn-icons.flaticon.com/png/512/3303/premium/3303893.png?token=exp=1638179389~hmac=2f227c4a24a6bee46a96f0afdd686d04"
+  src="https://cdn-icons.flaticon.com/png/512/3303/premium/3303893.png?token=exp=1638591456~hmac=97dea63bee70452fd9d283a568f19944"
   onClick={()=>OnIncreaseQuantity(product)}
   />
   <img 
