@@ -6,8 +6,9 @@ import App from './App';
 // import * as  serviceWorker from './serviceWorker';
 
 import firebase from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/firestore';
+import { initializeApp } from "firebase/app";
+//import 'firebase/auth';
+//import 'firebase/firestore';
 
 
 const firebaseConfig = {

@@ -3,34 +3,72 @@ import React from "react";
 
 import Cart from './Cart';
 import Navbar from "./Navbar";
+
+import firebase from 'firebase/app'
+import 'firebase/firestore';
 class App extends React.Component {
   constructor(){
     super()
     this.state={
-     products:[
-       {
-        price:999,
-        title:'Watch',
-        qty:1,
-        img:'https://images.unsplash.com/photo-1523170335258-f5ed11844a49?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80',
-        id:1    
-       },
-       {
-        price:999,
-        title:'Mobile phone',
-        qty:10,
-        img:'https://images.unsplash.com/photo-1619017098958-57b1e2d275e4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=435&q=80',
-        id:2
-       },
-       {
-        price:999,
-        title:'Macbook',
-        qty:6,
-        img:'https://images.unsplash.com/photo-1541807084-5c52b6b3adef?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80 ',
-        id:3
-       }
-     ]
+     products:[],
+     loading:true
     }
+    this.db=firebase.firestore();
+  }
+
+  componentDidMount () {
+       
+      // firebase
+      // .firestore()
+      // .collection('products')
+      // .get()
+      // .then((snapshot)=>{
+      //   console.log(snapshot);
+      //   snapshot.docs.map((doc)=>{
+      //     console.log(doc.data())
+      //   });
+
+      //   const products=snapshot.docs.map((doc)=>{
+      //     const data=doc.data();
+      //     data['id']=doc.id;  
+          
+      //     return data;//it will give an object
+      //   })
+      //   this.setState({ 
+      //     products,
+      //     loading:false
+      //   })
+      // })
+       
+
+      firebase
+      .firestore()
+      .collection('products')
+      .onSnapshot((snapshot)=>{
+        console.log(snapshot);
+        snapshot.docs.map((doc)=>{
+          console.log(doc.data())
+        });
+
+        const products=snapshot.docs.map((doc)=>{
+          const data=doc.data();
+          data['id']=doc.id;  
+          
+          return data;//it will give an object
+        })
+        this.setState({ 
+          products,
+          loading:false
+        })
+      })
+
+
+
+
+
+
+
+
   }
   handleIncreaseQuantity=(product)=>{
     const {products}=this.state;
@@ -76,19 +114,39 @@ products.forEach((products)=>{
 
   getCartTotal=()=>{
     const {products}=this.state;
-    let amt=0;
+    let cartTotal=0;
     products.map((product)=>{
-      amt+=product.qty* product.price
-    })
-    return amt;
+      if(product.qty>0){
+        cartTotal+=product.qty* product.price
+      }
+      return '';
+    
+    });
+    return cartTotal;
   }
-
+  addProduct=()=>{
+this.db
+.collection('products')
+.add({
+  img:'',
+  price:900,
+  qty:3,
+  title:'washing machine'
+})
+.then((docRef)=>{
+console.log('product has been added',docRef);
+})
+.catch((error)=>{
+  console.log('Error',error);
+})
+  }
   render(){
-    const{products}=this.state;
+    const{products,loading}=this.state;
     return (
       <div className="App">
        
        <Navbar count={this.getCartCount()}/>
+       <button onClick={this.addProduct} style={{padding:25,fontSize:20}}>Add a Product</button>
        <Cart
        products={products}
         OnIncreaseQuantity={this.handleIncreaseQuantity}
@@ -97,6 +155,8 @@ products.forEach((products)=>{
        
        
        />
+
+       {loading && <h1>Loading Products....</h1>}
        <div style={{padding:10,fontSize:20}}>TOTAL:{this.getCartTotal()}</div>
       </div>
     );
